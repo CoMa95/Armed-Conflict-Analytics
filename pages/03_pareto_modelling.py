@@ -1,5 +1,5 @@
 """
-Cluster Insights Page of the Armed Conflicts Analytics Dashboard.
+Pareto Modelling Page of the Armed Conflicts Analytics Dashboard.
 Displays key performance indicators (KPIs) and visualisations based on filtered data.
 """
 
