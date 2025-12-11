@@ -72,7 +72,7 @@ with dynamic_tab:
 
     # spatial density heatmap with altair
     st.subheader("🌍 Spatial Density of Selected Clusters")
-
+    st.markdown("**Note:** Select fewer clusters for better performance.")
     df_map = df.copy()
 
     # Prepare list of [lat, lon] pairs
