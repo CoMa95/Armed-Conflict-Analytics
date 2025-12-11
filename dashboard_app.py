@@ -172,5 +172,8 @@ severity_colors = {
 
 st.session_state["severity_colors"] = severity_colors
 
+# ---------------- Global top 15 clusters ----------------
+st.session_state["top_15_clusters"] = top_15_clusters
+
 # Run the navigation
 nav.run()
