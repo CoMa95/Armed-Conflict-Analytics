@@ -10,4 +10,4 @@ cloudinary_python.txt
 kaggle.json
 .venv/
 data/
-models/df_full_with_clusters.csv
+*.csv
