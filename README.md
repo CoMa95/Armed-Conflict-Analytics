@@ -2,7 +2,13 @@
 
 An applied data science project analysing global armed conflict events using clustering techniques and severity modelling. The project combines unsupervised learning with exploratory distributional analysis and presents the results in an interactive Streamlit dashboard.
 
-# ![Recent state of world wide conlfict](figures/event_fatalities.png)
+
+# ![Recent state of world wide conflict](figures/event_fatalities.png)
+
+
+# Dashboard Link
+
+https://armed-conflict-analytics-zpu5mtagzyxiasfnnqpmek.streamlit.app/
 
 
 ## Dataset Content
@@ -106,44 +112,42 @@ Streamlit was selected as the dashboard framework due to its suitability for **r
 
 Unlike business intelligence tools such as Tableau or Power BI, Streamlit allows analytical logic, data processing, and visualisation to coexist within a single, transparent codebase. This facilitates reproducibility, supports custom analytical workflows, and aligns naturally with the project’s exploratory and research-oriented goals. Additionally, Streamlit enables lightweight deployment and sharing without requiring proprietary software or complex infrastructure.
 
+### Deployment
+The dashboard was deployed on the Streamlit server and can be accessed with the following link:
+
+https://armed-conflict-analytics-zpu5mtagzyxiasfnnqpmek.streamlit.app/
+
 ## Major challenges
-* size challenge for pandas loading, ml modelling, streemlit, and git fuckup
-ucking up git 
 
-* Please mention unfixed bugs and why they were not fixed. This section should include shortcomings of the frameworks or technologies used. Although time can be a significant variable to consider, paucity of time and difficulty understanding implementation are not valid reasons to leave bugs unfixed.
-* Did you recognise gaps in your knowledge, and how did you address them?
-* If applicable, include evidence of feedback received (from peers or instructors) and how it improved your approach or understanding.
+1. **Dataset Scale**
+A primary challenge in this project was the scale of the dataset, which affected multiple stages of the workflow. The initial data loading required careful memory management and selective column handling to remain computationally feasible. During modelling, the size of the dataset made it impractical to apply DBSCAN directly to the full event set, necessitating a sampling-based strategy. Finally, data size constraints also posed challenges during deployment, as large CSV files exceeded platform limits for GitHub and Streamlit Cloud, requiring the creation of a reduced, deployment-specific dataset.
 
-## Development Roadmap
-* What challenges did you face, and what strategies were used to overcome these challenges?
-* What new skills or tools do you plan to learn next based on your project experience? 
+2. **Overly ambitious project scope**
+Early planning included additional objectives such as temporal mobility analysis and the detection of emergent conflict patterns. As the project progressed, it became clear that pursuing these goals alongside clustering, severity modelling, and dashboard development would dilute analytical depth. These objectives were therefore deprioritised in favour of a more focused and coherent analysis.
 
-## Deployment
-### Heroku
-
-* The App live link is: https://YOUR_APP_NAME.herokuapp.com/ 
-* Set the runtime.txt Python version to a [Heroku-20](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack currently supported version.
-* The project was deployed to Heroku using the following steps.
-
-1. Log in to Heroku and create an App
-2. From the Deploy tab, select GitHub as the deployment method.
-3. Select your repository name and click Search. Once it is found, click Connect.
-4. Select the branch you want to deploy, then click Deploy Branch.
-5. The deployment process should happen smoothly if all deployment files are fully functional. Click now the button Open App on the top of the page to access your App.
-6. If the slug size is too large then add large files not required for the app to the .slugignore file.
+3. **Interpretability**
+The project required navigating trade-offs between technically robust methods and clear communication, particularly when presenting complex statistical concepts such as heavy-tailed distributions to a non-specialist audience. This challenge influenced both visual design choices and the structuring of dashboard content.
 
 
 ## Main Data Analysis Libraries
-* Here you should list the libraries you used in the project and provide an example(s) of how you used these libraries.
+- pandas: Used for data loading, cleaning, transformation, and tabular analysis of large event-level datasets.
+- NumPy: Provided numerical operations and efficient array-based computations.
+- scikit-learn: Used for unsupervised learning, including clustering, nearest-neighbour assignment, and feature scaling.
+- matplotlib: Used for creating static plots and publication-style visualisations.
+- seaborn: Built on top of matplotlib to produce higher-level statistical visualisations during exploratory analysis.
+- powerlaw: Used for fitting and comparing heavy-tailed distributions to conflict fatality data.
+- Streamlit: Used to build and deploy an interactive dashboard for exploring results and communicating findings.
+- Altair: Used for interactive, declarative visualisations within the dashboard.
 
 ## Domain application
-how can this project be used in the domain
+The analytical framework and dashboard developed in this project can support decision-making in **security, humanitarian, and policy** contexts. Cluster-based characterisation of conflict events can help **military analysts and security organisations** identify recurring patterns of violence and distinguish between different conflict environments, while severity modelling provides insight into the likelihood and scale of extreme events. For **humanitarian and relief organisations**, such as the Red Cross or international NGOs, these tools can assist in risk prioritisation, resource allocation, and situational awareness by highlighting regions or conflict types associated with higher severity or volatility. In a more advanced implementation, integrating real-time data feeds and predictive indicators could enable **early-warning systems**, supporting proactive interventions and contingency planning.
 
-## Ethical considerations
-* Were there any data privacy, bias or fairness issues with the data?
-* How did you overcome any legal or societal issues?
+## Ethical, Legal, and Social implications
+This project relies on **publicly available, secondary data** collected by ACLED, which aggregates information from media reports and other open sources. While no personally identifiable information is used, conflict data may still reflect **reporting biases**, uneven media coverage, and political narratives that vary across regions. As a result, observed patterns may partially reflect information availability rather than true underlying conflict dynamics, and findings should be interpreted with appropriate caution.
 
-## Legal and Social implications
+Analytical choices made throughout the project (i.e. feature selection, clustering parameters, or sampling strategies) introduce an element of **researcher judgement** that may influence outcomes. Although efforts were made to adopt transparent and reproducible methods, the unsupervised nature of the analysis means that identified clusters do not represent objective or definitive conflict categories. They should be viewed as **analytical constructs rather than ground truth**.
+
+There are also broader societal and ethical implications associated with **how such analyses may be used**. While the tools developed here can support humanitarian planning and risk assessment, similar methodologies could be misused for surveillance, coercive security practices, or politically motivated narratives. For this reason, the project emphasises interpretability, transparency, and aggregate-level analysis rather than event-level targeting. Responsible use requires contextual understanding, domain expertise, and alignment with humanitarian and legal norms.
 
 ## Conclusions
 
