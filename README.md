@@ -41,7 +41,7 @@ Initial checks were performed to identify missing values, inconsistent encodings
 Exploratory analysis was conducted to understand temporal trends, geographic concentration of events, event type distributions, and the empirical distribution of reported fatalities.
 5. **Data Cleaning and Feature Engineering**
 Relevant variables were selected, categorical features were encoded, numerical variables were transformed and standardised where appropriate, and non-informative or redundant fields were removed.
-6. **lustering Methodology**
+6. **Clustering Methodology**
     - Parameter Selection: Density-based clustering parameters were selected using k-distance analysis on a representative data sample.
     - DBSCAN on Sample: DBSCAN was applied to a stratified subset of the data to identify core conflict clusters while managing computational constraints.
     - Cluster Assignment: A k-nearest neighbours (k-NN) approach was used to assign cluster labels to the remaining events based on proximity to clustered samples.
@@ -66,25 +66,47 @@ Finally, the dashboard could be extended with **event-level drill-downs or compa
 
 
 ## Analysis techniques used
-* List the data analysis methods used and explain limitations or alternative approaches.
-* How did you structure the data analysis techniques. Justify your response.
-* Did the data limit you, and did you use an alternative approach to meet these challenges?
-* How did you use generative AI tools to help with ideation, design thinking and code optimisation?
+1. <ins>Descriptive Statistics and Visualisation</ins>
+These were used as an initial analytical layer to summarise event frequencies, temporal trends, and severity distributions. Given the large size and heterogeneity of the dataset, these techniques are essential for understanding baseline properties of the data, identifying anomalies, and guiding subsequent methodological choices. Visual tools such as time series plots, bar charts, and distribution plots enable intuitive inspection of conflict dynamics and support transparent communication of findings.
+- Limitations: Descriptive analysis cannot uncover latent structure or explain underlying mechanisms.
+- Alternatives: Nonequivalent statistical summaries or automated profiling tools could be used, but would not replace the need for human-guided exploration.
 
-## Ethical considerations
-* Were there any data privacy, bias or fairness issues with the data?
-* How did you overcome any legal or societal issues?
+2. <ins>Density-Based Spatial Clustering (DBSCAN)</ins>
+DBSCAN was employed as the primary clustering method to identify groups of conflict events with similar characteristics without requiring predefined labels or a specified number of clusters. This makes it well suited to the dataset, which contains complex, unevenly distributed conflict patterns and likely includes noise and outliers. DBSCAN’s ability to identify clusters of arbitrary shape aligns well with the project’s goal of discovering emergent conflict typologies rather than imposing rigid classifications.
+- Limitations: DBSCAN is sensitive to parameter selection and can be computationally expensive on large datasets. It may also struggle with clusters of varying density.
+- Alternatives: Algorithms such as HDBSCAN or Gaussian Mixture Models could offer greater flexibility or probabilistic interpretations but introduce additional complexity.
 
-## Legal and Social implications
+3. <ins>k-Nearest Neighbours (k-NN) for Cluster Assignment</ins>
+Due to computational constraints, DBSCAN was applied to a representative data sample rather than the full dataset. A k-nearest neighbours (k-NN) approach was then used to assign cluster labels to the remaining events based on proximity to clustered samples. This hybrid strategy preserves the structure identified by DBSCAN while enabling scalability to large datasets.
+- Limitations: k-NN assumes local similarity and may propagate misclassifications if sample clusters are imperfect.
+- Alternatives: Approximate nearest neighbour methods or batch clustering with distributed computing could be considered for full-scale clustering.
+
+4. <ins>Pareto and Heavy-Tailed Distribution Fitting</ins>
+Severity analysis was conducted by fitting and comparing heavy-tailed distributions to the empirical distribution of conflict fatalities. This approach is appropriate given the highly skewed nature of conflict severity, where most events cause few or no fatalities while a small number result in extreme outcomes. Modelling the tail behaviour supports the project’s objective of understanding risk concentration and the statistical nature of extreme violence.
+- Limitations: Power-law behaviour is sensitive to threshold selection and may not hold across the entire distribution.
+- Alternatives: Lognormal or exponential models provide useful benchmarks and were explicitly compared to assess relative fit.
+
 
 ## Dashboard Design
-* List all dashboard pages and their content, either blocks of information or widgets, like buttons, checkboxes, images, or any other item that your dashboard library supports.
-* Later, during the project development, you may revisit your dashboard plan to update a given feature (for example, at the beginning of the project you were confident you would use a given plot to display an insight but subsequently you used another plot type).
-* How were data insights communicated to technical and non-technical audiences?
-* Explain how the dashboard was designed to communicate complex data insights to different audiences. 
-* explain why streamlit over the alternatives
 
-## Bugs and Major challenges
+### Pages
+1. The overview page provides high-level descriptive statistics and temporal summaries of conflict events.
+2. The cluster insights page focuses on comparative analysis across conflict clusters, allowing users to explore differences in temporal activity and severity distributions.
+3. The severity modelling page presents the results of heavy-tailed distribution fitting using more technical language and formal statistical representations. 
+4. A conclusions page synthesises the main findings in accessible, non-technical terms for a broader audience.
+
+### Levels of expertise
+Scientific results are communicated at multiple levels of abstraction. Quantitative findings are supported by formal statistical plots and model outputs where appropriate, while accompanying annotations and narrative summaries translate these results into intuitive interpretations. This layered approach allows technically proficient users to engage with methodological detail, while enabling non-specialist users to grasp the substantive implications of the analysis. In particular, the separation between analytical pages and the final conclusions page ensures that technical rigor and interpretability are both preserved.
+
+### Accessibility
+Visual design choices were made with accessibility in mind, including explicit consideration of colour vision deficiencies. Colour palettes with high contrast and perceptual uniformity were used across figures, and visual distinctions were reinforced through line styles, ordering, and annotations rather than colour alone. This ensures that key patterns remain interpretable for users with common forms of colour blindness and improves overall readability.
+
+### Why Streamlit?
+Streamlit was selected as the dashboard framework due to its suitability for **rapid prototyping, reproducibility, and direct integration** with Python-based data science workflows through GitHub. 
+
+Unlike business intelligence tools such as Tableau or Power BI, Streamlit allows analytical logic, data processing, and visualisation to coexist within a single, transparent codebase. This facilitates reproducibility, supports custom analytical workflows, and aligns naturally with the project’s exploratory and research-oriented goals. Additionally, Streamlit enables lightweight deployment and sharing without requiring proprietary software or complex infrastructure.
+
+## Major challenges
 * size challenge for pandas loading, ml modelling, streemlit, and git fuckup
 ucking up git 
 
@@ -116,6 +138,12 @@ ucking up git
 
 ## Domain application
 how can this project be used in the domain
+
+## Ethical considerations
+* Were there any data privacy, bias or fairness issues with the data?
+* How did you overcome any legal or societal issues?
+
+## Legal and Social implications
 
 ## Conclusions
 
