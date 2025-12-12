@@ -3,10 +3,10 @@
 An applied data science project analysing global armed conflict events using clustering techniques and severity modelling. The project combines unsupervised learning with exploratory distributional analysis and presents the results in an interactive Streamlit dashboard.
 
 
-# ![Recent state of world wide conflict](figures/event_fatalities.png)
+# ![Recent state of world wide conflict](figures/temporal_plot.png)
 
 
-# Dashboard Link
+## *Dashboard Link*
 
 https://armed-conflict-analytics-zpu5mtagzyxiasfnnqpmek.streamlit.app/
 
@@ -74,23 +74,23 @@ Finally, the dashboard could be extended with **event-level drill-downs or compa
 ## Analysis techniques used
 1. <ins>Descriptive Statistics and Visualisation</ins>
 These were used as an initial analytical layer to summarise event frequencies, temporal trends, and severity distributions. Given the large size and heterogeneity of the dataset, these techniques are essential for understanding baseline properties of the data, identifying anomalies, and guiding subsequent methodological choices. Visual tools such as time series plots, bar charts, and distribution plots enable intuitive inspection of conflict dynamics and support transparent communication of findings.
-- Limitations: Descriptive analysis cannot uncover latent structure or explain underlying mechanisms.
-- Alternatives: Nonequivalent statistical summaries or automated profiling tools could be used, but would not replace the need for human-guided exploration.
+    - Limitations: Descriptive analysis cannot uncover latent structure or explain underlying mechanisms.
+    - Alternatives: Nonequivalent statistical summaries or automated profiling tools could be used, but would not replace the need for human-guided exploration.
 
 2. <ins>Density-Based Spatial Clustering (DBSCAN)</ins>
 DBSCAN was employed as the primary clustering method to identify groups of conflict events with similar characteristics without requiring predefined labels or a specified number of clusters. This makes it well suited to the dataset, which contains complex, unevenly distributed conflict patterns and likely includes noise and outliers. DBSCAN’s ability to identify clusters of arbitrary shape aligns well with the project’s goal of discovering emergent conflict typologies rather than imposing rigid classifications.
-- Limitations: DBSCAN is sensitive to parameter selection and can be computationally expensive on large datasets. It may also struggle with clusters of varying density.
-- Alternatives: Algorithms such as HDBSCAN or Gaussian Mixture Models could offer greater flexibility or probabilistic interpretations but introduce additional complexity.
+    - Limitations: DBSCAN is sensitive to parameter selection and can be computationally expensive on large datasets. It may also struggle with clusters of varying density.
+    - Alternatives: Algorithms such as HDBSCAN or Gaussian Mixture Models could offer greater flexibility or probabilistic interpretations but introduce additional complexity.
 
 3. <ins>k-Nearest Neighbours (k-NN) for Cluster Assignment</ins>
 Due to computational constraints, DBSCAN was applied to a representative data sample rather than the full dataset. A k-nearest neighbours (k-NN) approach was then used to assign cluster labels to the remaining events based on proximity to clustered samples. This hybrid strategy preserves the structure identified by DBSCAN while enabling scalability to large datasets.
-- Limitations: k-NN assumes local similarity and may propagate misclassifications if sample clusters are imperfect.
-- Alternatives: Approximate nearest neighbour methods or batch clustering with distributed computing could be considered for full-scale clustering.
+    - Limitations: k-NN assumes local similarity and may propagate misclassifications if sample clusters are imperfect.
+    - Alternatives: Approximate nearest neighbour methods or batch clustering with distributed computing could be considered for full-scale clustering.
 
 4. <ins>Pareto and Heavy-Tailed Distribution Fitting</ins>
 Severity analysis was conducted by fitting and comparing heavy-tailed distributions to the empirical distribution of conflict fatalities. This approach is appropriate given the highly skewed nature of conflict severity, where most events cause few or no fatalities while a small number result in extreme outcomes. Modelling the tail behaviour supports the project’s objective of understanding risk concentration and the statistical nature of extreme violence.
-- Limitations: Power-law behaviour is sensitive to threshold selection and may not hold across the entire distribution.
-- Alternatives: Lognormal or exponential models provide useful benchmarks and were explicitly compared to assess relative fit.
+    - Limitations: Power-law behaviour is sensitive to threshold selection and may not hold across the entire distribution.
+    - Alternatives: Lognormal or exponential models provide useful benchmarks and were explicitly compared to assess relative fit.
 
 
 ## Dashboard Design
@@ -150,25 +150,30 @@ Analytical choices made throughout the project (i.e. feature selection, clusteri
 There are also broader societal and ethical implications associated with **how such analyses may be used**. While the tools developed here can support humanitarian planning and risk assessment, similar methodologies could be misused for surveillance, coercive security practices, or politically motivated narratives. For this reason, the project emphasises interpretability, transparency, and aggregate-level analysis rather than event-level targeting. Responsible use requires contextual understanding, domain expertise, and alignment with humanitarian and legal norms.
 
 ## Conclusions
+1. ***Armed conflict events exhibit strong structural regularities rather than random behaviour.***
+Despite the diversity of actors, regions, and event types, conflict events cluster into a limited number of recurring patterns with distinct temporal and severity characteristics, suggesting that conflict dynamics are shaped by persistent underlying structures.
+2. ***Most conflict-related violence is low intensity, but extreme events dominate overall impact.***
+The majority of recorded events result in few or no fatalities, yet a small fraction of high-severity incidents accounts for a disproportionate share of total harm. This imbalance has important implications for risk assessment and resource prioritisation.
+3. ***Conflict clusters differ not only in scale, but in qualitative composition.***
+Clusters vary meaningfully in terms of event types, interaction categories, and typical severity levels, indicating that conflicts cannot be treated as homogeneous phenomena even within the same geographic region or time period.
+4. ***Data-driven exploration is essential when labels and ground truth are unavailable.***
+The absence of predefined conflict typologies makes unsupervised and exploratory approaches particularly valuable, allowing meaningful patterns to emerge directly from the data rather than being imposed by prior assumptions.
+5. ***Effective communication is as critical as analytical rigor in conflict analytics***.
+Translating complex statistical findings into accessible, interactive visualisations significantly enhances interpretability and practical relevance, especially when findings may inform decision-making beyond technical audiences.
 
 ## Credits 
 
-* In this section, you need to reference where you got your content, media and extra help from. It is common practice to use code from other repositories and tutorials, however, it is important to be very specific about these sources to avoid plagiarism. 
-* You can break the credits section up into Content and Media, depending on what you have included in your project. 
+- For general Statistical and Armed conflicts knowledge: Wikipedia
+- For specific application of Statistical techniques: GeeksforGeeks, e.g. https://www.geeksforgeeks.org/machine-learning/dbscan-clustering-in-ml-density-based-clustering/
+- For a plethora of specific coding issues: stackoverflow
 
-### Content 
+### Data Source 
 
-- The text for the Home page was taken from Wikipedia Article A
-- Instructions on how to implement form validation on the Sign-Up page was taken from [Specific YouTube Tutorial](https://www.youtube.com/)
-- The icons in the footer were taken from [Font Awesome](https://fontawesome.com/)
-
-### Media
-
-- The photos used on the home and sign-up page are from This Open-Source site
-- The images used for the gallery page were taken from this other open-source site
+- ACLED website: https://acleddata.com/
 
 ### Declared use of generative AI
+Generative AI tools (ChatGPT 5.2) were used in a **supporting role** throughout this project. The author used it primarily to accelerate routine tasks such as basic code boilerplatting, debugging, documentation drafting, and refinement of graphs.
 
+All analytical decisions, methodological choices, data preprocessing steps, and interpretations of results were made by the author. Outputs generated with AI assistance were critically reviewed, adapted, and integrated into the project. **No automated system was used to generate conclusions or to make unverified analytical claims**.
 
-## Acknowledgements (optional)
-* Thank the people who provided support through this project.
+The use of generative AI enabled more time to be allocated to conceptual reasoning, validation, and interpretation, rather than mechanical implementation details. In essence, allowing the author to focus more on the parts he unapologetically finds more exciting.
