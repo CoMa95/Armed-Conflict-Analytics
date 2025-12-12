@@ -23,20 +23,47 @@ This project aimed to develop an unsupervised, data-driven understanding of orga
 2. Extract structural insights from the derived clusters by analysing various characteristics.
 3. Model conflict severity through Pareto and related heavy-tail distributions to assess escalation potential.
 
-## Hypothesis and how to validate?
+## Hypotheses / Expectations
 - H1: Conflict events will form coherent, distinct clusters extractable by a DBSCAN model.
 - H2: Obtained clusters will exhibit consistent internal structural properties, such as characteristic event-type distributions, or fatality intensity profiles.
 - H3: Fatality distributions will follow heavy-tailed (Pareto-like) behaviour.
 
 ## Project Plan
-* Outline the high-level steps taken for the analysis.
-* How was the data managed throughout the collection, processing, analysis and interpretation steps?
-* Why did you choose the research methodologies you used?
-* Talk about the future of the project (i.e. phase 2)
 
+### Steps
+1. **Data Acquisition**
+Conflict event data were obtained from the Armed Conflict Location & Event Data Project (ACLED) through the official data access portal.
+2. **Data Loading and Size Management**
+Due to the large volume of event-level records, a memory-efficient data loading procedure was implemented, including explicit data type specification and selective column loading to reduce memory usage.
+3. **Data Quality Assessment**
+Initial checks were performed to identify missing values, inconsistent encodings, outliers, and potential artefacts related to geographic precision and fatality reporting.
+4. **Exploratory Data Analysis (EDA)**
+Exploratory analysis was conducted to understand temporal trends, geographic concentration of events, event type distributions, and the empirical distribution of reported fatalities.
+5. **Data Cleaning and Feature Engineering**
+Relevant variables were selected, categorical features were encoded, numerical variables were transformed and standardised where appropriate, and non-informative or redundant fields were removed.
+6. **lustering Methodology**
+    - Parameter Selection: Density-based clustering parameters were selected using k-distance analysis on a representative data sample.
+    - DBSCAN on Sample: DBSCAN was applied to a stratified subset of the data to identify core conflict clusters while managing computational constraints.
+    - Cluster Assignment: A k-nearest neighbours (k-NN) approach was used to assign cluster labels to the remaining events based on proximity to clustered samples.
+7. **Cluster Insight Extraction**
+Identified clusters were analysed in terms of size, temporal activity, event composition, interaction types, and severity characteristics to derive interpretable conflict typologies.
+8. **Severity Distribution Modelling**
+Conflict severity was examined through distributional analysis of fatalities, including fitting and comparing power-law, lognormal, and exponential models using complementary cumulative distribution functions.
+9. **Dashboard Development**
+An interactive Streamlit dashboard was developed to present key findings, enabling users to explore conflict clusters, severity distributions, and temporal dynamics through filtered visualisations.
 
-## The rationale to map the business requirements to the Data Visualisations
-* List your business requirements and a rationale to map them to the Data Visualisations
+### Methodology choices
+This project adopts an **exploratory, data-driven research methodology** appropriate for the analysis of large-scale, observational conflict data. The ACLED dataset is not generated through controlled experiments but through systematic reporting of real-world events, which makes hypothesis-free exploration and pattern discovery a suitable starting point. Rather than testing predefined causal relationships, the methodology focuses on identifying regularities, structures, and distributions that emerge naturally from the data.
+
+An **unsupervised analytical approach** was chosen to accommodate the absence of ground-truth labels for conflict typologies or escalation patterns. This allows conflict events to be grouped based on shared characteristics without imposing externally defined categories, supporting the discovery of latent structures within complex and heterogeneous data.
+
+### Future direction
+Several extensions could further enhance the scope and depth of this project. Future work could incorporate **richer temporal modelling**, such as explicit change-point detection or early-warning indicators, to better capture shifts in conflict dynamics over time. 
+
+Integrating **additional contextual variables** (e.g. socioeconomic indicators or political stability metrics) could also improve the interpretability of identified conflict clusters. From a methodological perspective, alternative unsupervised approaches or hybrid clustering strategies could be explored to assess the robustness of the identified structures. 
+
+Finally, the dashboard could be extended with **event-level drill-downs or comparative regional views**, enabling more granular exploration while maintaining the current high-level analytical focus.
+
 
 ## Analysis techniques used
 * List the data analysis methods used and explain limitations or alternative approaches.
