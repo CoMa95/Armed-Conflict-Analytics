@@ -6,10 +6,9 @@ Displays key performance indicators (KPIs) and visualisations based on filtered 
 # import libraries
 import streamlit as st
 import pandas as pd
+import numpy as np
 import altair as alt
 import matplotlib.pyplot as plt
-import cartopy.crs as ccrs
-import cartopy.feature as cfeature
 import seaborn as sns
 
 # ---------------- Page config ----------------
@@ -70,49 +69,6 @@ with dynamic_tab:
     )
 
     st.altair_chart(chart, use_container_width=True)
-
-    # spatial density heatmap with altair
-    st.subheader("🌍 Spatial Density of Selected Clusters")
-
-    # subsampling for performance improvement
-    MAX_POINTS = 100000
-    df_map = df.copy()
-    if len(df_map) > MAX_POINTS:
-        df_map = df_map.sample(MAX_POINTS, random_state=42)
-
-    # extract lon and lat
-    lon = df_map["longitude"]
-    lat = df_map["latitude"]
-
-    # create figure 
-    fig = plt.figure(figsize=(10, 5))
-    ax = plt.axes(projection=ccrs.PlateCarree())
-
-    # add Cartopy map
-    ax.add_feature(cfeature.LAND, facecolor="#f0f0f0")
-    ax.add_feature(cfeature.OCEAN, facecolor="#dceaf2")
-    ax.add_feature(cfeature.COASTLINE, linewidth=0.5)
-    ax.add_feature(cfeature.BORDERS, linewidth=0.4)
-
-    # create KDE density
-    sns.kdeplot(
-        x=lon,
-        y=lat,
-        fill=True,
-        cmap="viridis",
-        bw_adjust=0.6,
-        thresh=0.05,
-        levels=30,
-        alpha=0.8,
-        ax=ax,
-    )
-
-    # format
-    ax.set_title("Spatial Density of Conflict Events")
-    plt.tight_layout()
-
-    st.pyplot(fig)
-
 
 # --------------- Tab 3 ---------------
 with profile_tab:
