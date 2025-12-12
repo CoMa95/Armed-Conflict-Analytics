@@ -8,14 +8,15 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import matplotlib.pyplot as plt
-import folium
-from folium.plugins import HeatMap
-from streamlit_folium import st_folium
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+import seaborn as sns
 
 # ---------------- Page config ----------------
 st.title("🔍 Conflict Cluster Insights")
 st.markdown("Explore data-driven clusters of armed conflict events.")
-
+st.markdown("---")
+st.markdown("The clusters were generated using a semi-supervised method: DBSCAN was employed to create the cluster labels on a dataset sample, afterwards a k-NN was trained on the labelled sample and then predicted the labels for the rest of the dataset.")
 
 # ---------------- Load filtered data ----------------
 df = st.session_state["filtered_df"]
@@ -72,29 +73,45 @@ with dynamic_tab:
 
     # spatial density heatmap with altair
     st.subheader("🌍 Spatial Density of Selected Clusters")
-    st.markdown("**Note:** Select fewer clusters for better performance.")
+
+    # subsampling for performance improvement
+    MAX_POINTS = 100000
     df_map = df.copy()
+    if len(df_map) > MAX_POINTS:
+        df_map = df_map.sample(MAX_POINTS, random_state=42)
 
-    # Prepare list of [lat, lon] pairs
-    heat_data = df_map[["latitude", "longitude"]].dropna().values.tolist()
+    # extract lon and lat
+    lon = df_map["longitude"]
+    lat = df_map["latitude"]
 
-    # Center map on mean location
-    center_lat = df_map["latitude"].mean()
-    center_lon = df_map["longitude"].mean()
+    # create figure 
+    fig = plt.figure(figsize=(10, 5))
+    ax = plt.axes(projection=ccrs.PlateCarree())
 
-    # Create base map
-    m = folium.Map(location=[center_lat, center_lon], zoom_start=2, tiles="cartodbpositron")
+    # add Cartopy map
+    ax.add_feature(cfeature.LAND, facecolor="#f0f0f0")
+    ax.add_feature(cfeature.OCEAN, facecolor="#dceaf2")
+    ax.add_feature(cfeature.COASTLINE, linewidth=0.5)
+    ax.add_feature(cfeature.BORDERS, linewidth=0.4)
 
-    # Add heatmap layer
-    HeatMap(
-        heat_data,
-        radius=8,        # controls smoothing — higher = smoother
-        blur=15,         # further smoothness
-        max_zoom=4,
-    ).add_to(m)
+    # create KDE density
+    sns.kdeplot(
+        x=lon,
+        y=lat,
+        fill=True,
+        cmap="viridis",
+        bw_adjust=0.6,
+        thresh=0.05,
+        levels=30,
+        alpha=0.8,
+        ax=ax,
+    )
 
-    # Display in Streamlit
-    st_folium(m, width=900, height=550)
+    # format
+    ax.set_title("Spatial Density of Conflict Events")
+    plt.tight_layout()
+
+    st.pyplot(fig)
 
 
 # --------------- Tab 3 ---------------
