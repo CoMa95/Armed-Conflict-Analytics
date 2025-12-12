@@ -6,15 +6,27 @@ An applied data science project analysing global armed conflict events using clu
 
 
 ## Dataset Content
-* Describe your dataset. Choose a dataset of reasonable size to avoid exceeding the repository's maximum size of 100Gb.
+**Armed Conflict Location & Event Data Project (ACLED)**, a widely used, publicly available database that systematically records political violence and protest events around the world. ACLED collects event-level data through continuous monitoring of a broad range of sources, including international and local news outlets, reports from non-governmental organisations, and other publicly available information. Each event is manually coded by trained analysts following a standardised methodology.
 
+The dataset contains detailed information on individual conflict events, including the date of occurrence, type of event, actors involved, interaction type, geographic region, and reported fatalities. Events span multiple forms of political violence, such as battles, violence against civilians, and remote explosive incidents, and cover a wide temporal and geographic scope.
+
+Original dimensions: 
+- 636 MB
+- 1.065.312 Rows x 21 Columns
 
 ## Business Requirements
-* Describe your business requirements
+This project aimed to develop an unsupervised, data-driven understanding of organised armed conflict through spatial clustering, temporal mobility analysis, hotspot detection, and severity modelling. 
 
+<ins>Objectives</ins>
+
+1. Develop a spatial clustering methodology using DBSCAN to identify and characterise distinct conflict clusters.
+2. Extract structural insights from the derived clusters by analysing various characteristics.
+3. Model conflict severity through Pareto and related heavy-tail distributions to assess escalation potential.
 
 ## Hypothesis and how to validate?
-* List here your project hypothesis(es) and how you envision validating it (them) 
+- H1: Conflict events will form coherent, distinct clusters extractable by a DBSCAN model.
+- H2: Obtained clusters will exhibit consistent internal structural properties, such as characteristic event-type distributions, or fatality intensity profiles.
+- H3: Fatality distributions will follow heavy-tailed (Pareto-like) behaviour.
 
 ## Project Plan
 * Outline the high-level steps taken for the analysis.
@@ -96,6 +108,7 @@ how can this project be used in the domain
 - The photos used on the home and sign-up page are from This Open-Source site
 - The images used for the gallery page were taken from this other open-source site
 
+### Declared use of generative AI
 
 
 ## Acknowledgements (optional)
