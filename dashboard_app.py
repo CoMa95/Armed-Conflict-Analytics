@@ -19,7 +19,7 @@ st.set_page_config(
 @st.cache_data
 def load_data():
     return pd.read_csv(
-        "models/df_full_with_clusters.csv",
+        "notebooks/df_deploy.csv",
         index_col=0,
         parse_dates=["event_date"]
     )
