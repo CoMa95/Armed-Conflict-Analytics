@@ -13,5 +13,4 @@ xgboost==1.7.6
 yellowbrick==1.5 # can be removed from requirements before deployment
 Pillow==10.0.1 # can be removed from requirements before deployment
 altair==5.5.0
-folium==0.20.0
-streamlit-folium==0.25.3
+Cartopy==0.25.0

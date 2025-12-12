@@ -11,9 +11,7 @@ import pandas as pd
 st.title("📉 Pareto Modelling of Conflict Severity")
 
 st.markdown("""
-### Power-Law / Pareto Severity Analysis
-
-**Why fitting a Pareto/Power Law model?**
+### Why fitting a Pareto/Power Law model?
 
 Conflict fatalities are not distributed normally: most events cause few deaths, while a small number cause extremely high casualties. A power-law (Pareto) distribution may capture this imbalance by modeling how ***rare, catastrophic events dominate the overall dynamics of violence***.
 
